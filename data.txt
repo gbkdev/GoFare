@@ -1,0 +1,21 @@
+Jemo → Jemo Mikael = 50
+Jemo → Germen = 25
+Jemo → Mekanisa = 30
+Jemo → Mekanisa Abo = 30
+Jemo → Sarbet = 40
+Jemo → Mexico = 50
+
+
+
+
+
+
+
+Jemo → Medhanialem = 10
+Jemo → Musica Sefer = 10
+Jemo → Lebu = 20
+Jemo → Meberat = 20
+
+
+
+
