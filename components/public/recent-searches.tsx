@@ -44,7 +44,7 @@ export function RecentSearches({ onSelect }: { onSelect: (s: RecentSearch) => vo
 
   return (
     <section className="mx-auto mt-10 max-w-3xl px-4">
-      <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-900">
+      <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-900 dark:text-white">
         <Clock className="h-4 w-4 text-slate-400" /> Recent searches
       </h2>
       <div className="flex flex-wrap gap-2">
@@ -52,11 +52,11 @@ export function RecentSearches({ onSelect }: { onSelect: (s: RecentSearch) => vo
           <button
             key={`${s.fromId}-${s.toId}`}
             onClick={() => onSelect(s)}
-            className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm hover:border-brand-300"
+            className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm hover:border-brand-300 transition active:scale-95 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-slate-700"
           >
-            <span className="font-medium text-slate-700">{s.fromName}</span>
+            <span className="font-medium text-slate-700 dark:text-slate-300">{s.fromName}</span>
             <ArrowRight className="h-3 w-3 text-slate-400" />
-            <span className="font-medium text-slate-700">{s.toName}</span>
+            <span className="font-medium text-slate-700 dark:text-slate-300">{s.toName}</span>
             {s.price != null && (
               <span className="font-semibold text-fare">{formatPrice(s.price, s.currency ?? "ETB")}</span>
             )}

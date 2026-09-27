@@ -1,13 +1,18 @@
 "use client";
 
-import { ArrowDown, Info, Car, Bus, Users, MoreHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowDown, Info, Car, Bus, Users, MoreHorizontal, Bookmark } from "lucide-react";
 import { formatPrice, formatRelativeDate } from "@/lib/utils";
 import type { PriceQuoteOption } from "@/lib/types";
 import { ReportRouteForm } from "./report-route-form";
+import { isRouteSaved, saveRoute, removeSavedRoute } from "./saved-routes-modal";
+import { toast } from "sonner";
 
 type Props = {
   fromName: string;
   toName: string;
+  fromId?: string;
+  toId?: string;
   found: boolean;
   options: PriceQuoteOption[];
 };
@@ -23,7 +28,28 @@ function TransportIcon({ icon }: { icon: string | null }) {
   return <Icon className="h-5 w-5" />;
 }
 
-export function PriceResult({ fromName, toName, found, options }: Props) {
+export function PriceResult({ fromName, toName, fromId, toId, found, options }: Props) {
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (fromId && toId) {
+      setSaved(isRouteSaved(fromId, toId));
+    }
+  }, [fromId, toId]);
+
+  function handleToggleSave() {
+    if (!fromId || !toId) return;
+    if (saved) {
+      removeSavedRoute(`${fromId}-${toId}`);
+      setSaved(false);
+      toast("Route removed from saved");
+    } else {
+      saveRoute({ id: fromId, name: fromName }, { id: toId, name: toName });
+      setSaved(true);
+      toast.success("Route saved to bookmarks!");
+    }
+  }
+
   if (!found) {
     return (
       <div className="animate-fade-up rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-card">
@@ -41,10 +67,26 @@ export function PriceResult({ fromName, toName, found, options }: Props) {
 
   return (
     <div className="animate-fade-up space-y-4">
-      <div className="flex items-center justify-center gap-2 text-sm font-medium text-slate-500">
-        <span>{fromName}</span>
-        <ArrowDown className="h-4 w-4" />
-        <span>{toName}</span>
+      <div className="flex items-center justify-between px-2">
+        <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
+          <span>{fromName}</span>
+          <ArrowDown className="h-4 w-4 text-slate-400" />
+          <span>{toName}</span>
+        </div>
+        {fromId && toId && (
+          <button
+            type="button"
+            onClick={handleToggleSave}
+            className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition active:scale-95 ${
+              saved
+                ? "bg-brand-50 text-brand-700 border border-brand-200"
+                : "bg-white text-slate-600 border border-slate-200 hover:border-brand-300"
+            }`}
+          >
+            <Bookmark className={`h-3.5 w-3.5 ${saved ? "fill-brand-600 text-brand-600" : "text-slate-400"}`} />
+            {saved ? "Saved" : "Save route"}
+          </button>
+        )}
       </div>
 
       {/* One card per transport type — taxi, minibus, bus, etc. shown separately */}

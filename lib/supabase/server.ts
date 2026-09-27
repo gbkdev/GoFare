@@ -1,4 +1,5 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import type { Database } from "@/lib/database.types";
 
@@ -38,7 +39,6 @@ export function createClient() {
  * admin_activity_logs, etc). NEVER import this into client components.
  */
 export function createServiceRoleClient() {
-  const { createClient: createSupabaseClient } = require("@supabase/supabase-js");
   return createSupabaseClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,

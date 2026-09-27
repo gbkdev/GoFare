@@ -1,0 +1,36 @@
+import { MetadataRoute } from "next";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "GoFare — Addis Transport Price Finder",
+    short_name: "GoFare",
+    description: "Know the price before you go. Find public transport fares across Addis Ababa.",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    background_color: "#0f172a",
+    theme_color: "#1a6df2",
+    orientation: "portrait",
+    categories: ["travel", "navigation", "utilities"],
+    icons: [
+      {
+        src: "/icons/icon-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icons/icon-maskable-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
+      },
+    ],
+  };
+}

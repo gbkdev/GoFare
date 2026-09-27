@@ -62,17 +62,17 @@ export function LocationPicker({ label, placeholder, value, onChange, excludeId,
         onClick={() => setOpen((o) => !o)}
         className={cn(
           "flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-left transition",
-          "hover:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-400",
+          "hover:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-400 dark:border-slate-800 dark:bg-slate-900/90",
           open && "border-brand-400 ring-2 ring-brand-400"
         )}
       >
         <Search className="h-5 w-5 shrink-0 text-slate-400" />
-        <span className={cn("truncate text-base", value ? "font-medium text-slate-900" : "text-slate-400")}>
+        <span className={cn("truncate text-base", value ? "font-medium text-slate-900 dark:text-white" : "text-slate-400")}>
           {value ? value.name : placeholder}
         </span>
         {value && (
           <X
-            className="ml-auto h-4 w-4 shrink-0 text-slate-400 hover:text-slate-700"
+            className="ml-auto h-4 w-4 shrink-0 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
             onClick={(e) => {
               e.stopPropagation();
               setQuery("");
@@ -83,15 +83,15 @@ export function LocationPicker({ label, placeholder, value, onChange, excludeId,
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-full z-30 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
-          <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-3">
+        <div className="absolute left-0 right-0 top-full z-30 mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft dark:border-slate-800 dark:bg-slate-900">
+          <div className="flex items-center gap-2 border-b border-slate-100 px-4 py-3 dark:border-slate-800">
             <Search className="h-4 w-4 text-slate-400" />
             <input
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Type a location..."
-              className="w-full text-sm outline-none placeholder:text-slate-400"
+              className="w-full text-sm outline-none placeholder:text-slate-400 dark:bg-transparent dark:text-white"
             />
           </div>
           <div className="max-h-72 overflow-y-auto p-2">
@@ -113,10 +113,10 @@ export function LocationPicker({ label, placeholder, value, onChange, excludeId,
                   setOpen(false);
                   setQuery("");
                 }}
-                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm hover:bg-brand-50"
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm hover:bg-brand-50 dark:hover:bg-slate-800"
               >
                 <MapPin className="h-4 w-4 shrink-0 text-brand-500" />
-                <span className="font-medium text-slate-800">{loc.name}</span>
+                <span className="font-medium text-slate-800 dark:text-slate-200">{loc.name}</span>
               </button>
             ))}
           </div>
